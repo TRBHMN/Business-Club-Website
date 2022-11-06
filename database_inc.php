@@ -1,6 +1,6 @@
 <?php
 
-$connect = mysqli_connect("localhost","9_8_BT","linuxASW!", "9_8_BT");
+$connect = mysqli_connect("localhost","","linuxASW!", "9_8_BT");
 
 if (mysqli_connect_errno())
 {
