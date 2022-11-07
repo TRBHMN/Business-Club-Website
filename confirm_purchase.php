@@ -31,15 +31,6 @@
 include('database_inc.php');
 
 
-
-
-$block = $_POST['block'];
-if(empty($block)) {
-  $block=99999;
-}
-
-
-
 $drink = $_POST['drinks'];
 $snack = $_POST['snacks'];
 $utilities = $_POST['utilities'];
