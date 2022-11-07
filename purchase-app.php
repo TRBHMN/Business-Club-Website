@@ -16,10 +16,10 @@
     <!-- PLEASE DO NOT EDIT ANYTHING ABOVE THIS LINE -->
     <!-- =========================================== -->
 
-    
+      
 <h1 class="mx-auto" style="width: 600px; font-size: 50px;"  title="Title"><kbd>Corner Of Consumption Inventory Purchase Application</kbd></h1>
 
-<!-- 
+<!--  
 <div id="upperPart">
     <img id="foxPicture" th:src="file:///Users/23behmen_t/Library/Mobile%20Documents/com~apple~CloudDocs/Documents/Programming/HTML/GANGSTER.jpg" height="400" width="400"/>
 </div> --> 
