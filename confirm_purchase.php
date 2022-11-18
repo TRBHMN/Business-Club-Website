@@ -12,7 +12,20 @@
     <!-- PLEASE DO NOT EDIT ANYTHING ABOVE THIS LINE -->
     <!-- =========================================== -->
 
-    <div class = "row justify-content-center">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <a class="navbar-brand" href="#">COC</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="https://learningcomputerscience.com/9_8_BT/purchase-app.php">Purchase Application <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div style="margin-top: 60px;" class = "row justify-content-center">
         <h1> Purchase order completed </h1>
     </div>
 
@@ -29,6 +42,7 @@
 
     <?php
 include('database_inc.php');
+
 
 
 $drink = $_POST['drinks'];
@@ -50,7 +64,6 @@ $query_get_items = mysqli_query($connect, "SELECT * FROM test11 ORDER BY timesta
 $row = mysqli_fetch_array($query_get_items);
 
 echo "<p>" . $row['ID'] . ": " . $row['snacks'] . " x " . $row['snack_q'] . "</p>";
-
 
 
 
