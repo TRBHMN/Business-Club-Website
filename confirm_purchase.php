@@ -1,3 +1,14 @@
+<?php
+  include_once "pdo.php";
+
+  if (isset($_POST['sbmit'])){
+    $a = $_POST['drinks'];
+    $b = $_POST['snacks'];
+    $c = $_POST['utilities'];
+  }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,76 +16,102 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  </head>
+    <link rel="stylesheet" href="act.css">
+ 
+</head> 
 <body class="bg-secondary p-2 text-white">
     <!-- =========================================== -->
     <!-- PLEASE DO NOT EDIT ANYTHING ABOVE THIS LINE -->
     <!-- =========================================== -->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <a class="navbar-brand" href="#">COC</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="https://learningcomputerscience.com/9_8_BT/purchase-app.php">Purchase Application <span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
+      
+<h1 class="mx-auto" title="Title"><kbd>Corner Of Consumption Inventory Purchase Application</kbd></h1>
+
+<!--  
+<div id="upperPart">
+    <img id="foxPicture" th:src="file:///Users/23behmen_t/Library/Mobile%20Documents/com~apple~CloudDocs/Documents/Programming/HTML/GANGSTER.jpg" height="400" width="400"/>
+</div> --> 
+<div class="row justify-content-center">
+  <div
+    class="col-6 bg-image card shadow-1-strong"
+  >
+    <div class="card-body text-white">
+      <h5 class="card-title">Reminder</h5>
+      <p class="card-text">
+        Make sure to double check the options that each of the customers buy. Make sure to select the correct items.
+      </p>
+    </div>
   </div>
-</nav>
-    <div style="margin-top: 60px;" class = "row justify-content-center">
-        <h1> Purchase order completed </h1>
+<form method="POST" action="confirm_purchase.php"> <!--action="confirm_purchase.php"-->
+    <br>
+    <div class="col-12 ">
+      <h5> Block: <input type="int" name = "block" value="0"> </h5> </br>
+    </div>  
+</div>
+    <hr class="border border-light border-3">
+
+<div class="row justify-content-center"> <!--justify content center is fucking sick -->
+    <div id = "drink" class="bg-dark col-3 ml-5 mr-5">
+      <h2> Drinks </h2> </br>
+      <select name="drinks" id="drinks">
+        <option selected>Open this select menu</option>
+        <?php
+            $stmt = $pdo->query("SELECT name FROM items WHERE type='drinks'");
+            while ( $row = $stmt->fetch(PDO::FETCH_ASSOC) ) {
+                  echo("<option>".$row['name']."</option>");
+                }
+        ?>
+      </select> </br>
+      <h5> Quantity of drinks: <input type="int" name = "drinkq" size="7" value="0"> </h5> </br>
+      <!-- <button name="add" id="add" class = "btn btn-success add_item_btn"> Add Item +<button>   -->
     </div>
 
-    
- 
-    <div class = "row justify-content-center">
-        <a style = "color: white;" href="https://learningcomputerscience.com/9_8_BT/purchase-app.php"> Click here to complete another one </a>
+    <div class="bg-dark col-3 ml-5 mr-5" >
+      <h2> Snacks </h2> </br>
+      <select name="snacks" id="snacks">
+        <option selected>Open this select menu</option>
+        <?php
+            $stmt = $pdo->query("SELECT name FROM items WHERE type='snacks'");
+            while ( $row = $stmt->fetch(PDO::FETCH_ASSOC) ) {
+                  echo("<option>".$row['name']."</option>");
+                }
+        ?>
+      </select> </br>
+      <h5> Quantity of snacks: <input type="int" name = "snackq" size="7" value="0"> </h5> </br>
     </div>
 
+    <div class="bg-dark col-3 ml-5 mr-5" >
+      <h2 > Utilities </h2> </br>
+      <select name="utilities" id="utilities">
+        <option selected>Open this select menu</option>
+        <?php
+            $stmt = $pdo->query("SELECT name FROM items WHERE type='utilities'");
+            while ( $row = $stmt->fetch(PDO::FETCH_ASSOC) ) {
+                  echo("<option>".$row['name']."</option>");
+                }
+        ?>
+      </select> </br>
+      <h5> Quantity of utilities: <input type="int" name = "utilitiesq" size="7" value="0"> </h5> </br>
+    </div>
+</div>
+<br>
+<div class="row justify-content-center">
+    <input type="submit" value="Submit" name="sbmit" class = "btn btn-primary w-25" id="submit_btn" >
+</div>
 
-    <div>
-        <a class = "m-10" style = "font-size: 30px"> Make sure these are your items... <a>
-    </div>   
-
-    <?php
-include('database_inc.php');
-
-
-
-$drink = $_POST['drinks'];
-$snack = $_POST['snacks'];
-$utilities = $_POST['utilities'];
-$sq = $_POST['snackq'];
-$dq = $_POST['drinkq'];
-$uq = $_POST['utilitiesq'];
- 
-
-
-$result = mysqli_query($connect,
-    "INSERT INTO `test11` 
-    (`b`,`snacks`, `snack_q`, `drinks`, `drinks_q`, `utilities`, `utilities_q`) 
-    VALUES ('$block','$snack', '$sq','$drink', '$dq','$utilities', '$uq');");
- 
-$query_get_items = mysqli_query($connect, "SELECT * FROM test11 ORDER BY timestamp DESC");
-
-$row = mysqli_fetch_array($query_get_items);
-
-echo "<p>" . $row['ID'] . ": " . $row['snacks'] . " x " . $row['snack_q'] . "</p>";
-
-
-
-// echo "<pre>";
-// print_r(get_defined_vars());
-// echo "</pre>";
-
-// header('location:HTML.php');
-?>
-
-    <!-- =========================================== -->
+</form>
+<script>
+// $(document).ready(function(e)){
+//   var i = 1;
+//   $('.add_item_btn').click(function()){
+//     e.preventDefault()
+//     $('.drink').prepend(
+//       "<select name="drinks" id="drinks"> <option selected>Open this select menu</option> <option value="Hortex Orange Juice 300ml">Hortex Orange Juice 300ml</option><option value="Still Water 500ml">Still Water 500ml</option> <option value="Oshee Vitamin Zero Magnesium 250ml">Oshee Vitamin Zero Magnesium 250ml</option></select> </br>"
+//     );
+//   }
+// };
+// </script>
+<!-- =========================================== -->
     <!-- PLEASE DO NOT EDIT ANYTHING BELOW THIS LINE -->
     <!-- =========================================== -->
     <!-- Optional JavaScript -->
