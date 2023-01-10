@@ -1,78 +1,64 @@
+<?php
+  session_start();
+
+  include_once "pdo.php";
+  $mydate=getdate(date("U"));
+  $date = "$mydate[weekday], $mydate[month] $mydate[mday], $mydate[year]";
+  echo $date;
+  
+?>
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   </head>
-<body class="bg-secondary p-2 text-white">
-    <!-- =========================================== -->
-    <!-- PLEASE DO NOT EDIT ANYTHING ABOVE THIS LINE -->
-    <!-- =========================================== -->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <a class="navbar-brand" href="#">COC</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="https://learningcomputerscience.com/9_8_BT/purchase-app.php">Purchase Application <span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-  </div>
-</nav>
-    <div style="margin-top: 60px;" class = "row justify-content-center">
-        <h1> Purchase order completed </h1>
-    </div>
-
-    
+<body>
  
-    <div class = "row justify-content-center">
-        <a style = "color: white;" href="https://learningcomputerscience.com/9_8_BT/purchase-app.php"> Click here to complete another one </a>
-    </div>
 
 
-    <div>
-        <a class = "m-10" style = "font-size: 30px"> Make sure these are your items... <a>
-    </div>   
+    <p> Make sure these are your items... </p>
 
     <?php
-include('database_inc.php');
+        include('database_inc.php');
 
+        if ($_POST['drinks'] == "Open this select menu") {
+            $_POST['drinks'] = "Not selected";
+        } 
+        if ($_POST['snacks'] == "Open this select menu") {
+            $_POST['snacks'] = "Not selected";
+        }
+        if ($_POST['utilities'] == "Open this select menu") {
+            $_POST['utilities'] = "Not selected";
+        }
+        
+        echo $_POST['drinks']," ", $_POST['drinkq'],"<br>", $_POST['snacks']," ", $_POST['snackq'],"<br>",$_POST['utilities']," ", $_POST['utilitiesq'];
+        
+        $_SESSION['d'] = $_POST['drinks'];
+        $_SESSION['s'] = $_POST['snacks'];
+        $_SESSION['u'] = $_POST['utilities'];
+        $_SESSION['dq'] = $_POST['drinkq'];
+        $_SESSION['sq'] = $_POST['snackq'];
+        $_SESSION['uq'] = $_POST['utilitiesq'];
+    ?>
 
+    <form method = "post" action = "purchase_app.php">
+        <p> 
+        <input type = "submit" name = "confirmation" value ="yes"> 
+        <input type = "submit" name = "confirmation" value ="no">   
+        </p>
+    </form>
 
-$drink = $_POST['drinks'];
-$snack = $_POST['snacks'];
-$utilities = $_POST['utilities'];
-$sq = $_POST['snackq'];
-$dq = $_POST['drinkq'];
-$uq = $_POST['utilitiesq'];
- 
-
-
-$result = mysqli_query($connect,
-    "INSERT INTO `test11` 
-    (`b`,`snacks`, `snack_q`, `drinks`, `drinks_q`, `utilities`, `utilities_q`) 
-    VALUES ('$block','$snack', '$sq','$drink', '$dq','$utilities', '$uq');");
- 
-$query_get_items = mysqli_query($connect, "SELECT * FROM test11 ORDER BY timestamp DESC");
-
-$row = mysqli_fetch_array($query_get_items);
-
-echo "<p>" . $row['ID'] . ": " . $row['snacks'] . " x " . $row['snack_q'] . "</p>";
-
-
-
-// echo "<pre>";
-// print_r(get_defined_vars());
-// echo "</pre>";
-
-// header('location:HTML.php');
-?>
+    
 
     <!-- =========================================== -->
     <!-- PLEASE DO NOT EDIT ANYTHING BELOW THIS LINE -->
